@@ -1,0 +1,76 @@
+///////////////////////////////////
+// square.cpp
+//
+// OpenGL program to draw a square.
+// 
+// Sumanta Guha.
+///////////////////////////////////
+#ifdef __APPLE__
+#  include <GL/glew.h>
+#  include <GL/freeglut.h>
+#  include <OpenGL/glext.h>
+#else
+#  include <GL/glew.h>
+#  include <GL/freeglut.h>
+#pragma comment(lib, "glew32.lib") 
+#endif
+
+#include "GameEngine.h"
+
+GameEngine gameEngine;
+
+int main(int argc, char **argv) 
+{
+	gameEngine.Initialise(800, 600, "Super Lawn Ball", argc, argv);
+
+	gameEngine.Setup();
+
+	PhysicsObject physPlane(0.0f, new PlaneCollider(glm::vec3(0.0f, 1.0f, 0.0f)));
+	PhysicsObject physSphere(5.0f, new SphereCollider(2));
+	PhysicsObject physSphere1(5.0f, new SphereCollider(4));
+	PhysicsObject physSphere2(5.0f, new SphereCollider(4));
+	PhysicsObject physSphere3(5.0f, new SphereCollider(4));
+	PhysicsObject physSphere4(5.0f, new SphereCollider(4));
+
+	gameEngine.AddPhysObject(&physPlane);
+	gameEngine.AddPhysObject(&physSphere);
+	gameEngine.AddPhysObject(&physSphere1);
+	gameEngine.AddPhysObject(&physSphere2);
+	gameEngine.AddPhysObject(&physSphere3);
+	gameEngine.AddPhysObject(&physSphere4);
+
+	gameEngine.AddGameObject(new GameObject("jack", glm::vec3(0.0, 0.0, 90.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("SmallSphere"), gameEngine.textureManager.GetTexture("ShinyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toon"), &physSphere), false);
+	gameEngine.AddGameObject(new GameObject("ball1", glm::vec3(15.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"),gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toon"), &physSphere1), false);	
+	gameEngine.AddGameObject(new GameObject("ball2", glm::vec3(30.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toon"), &physSphere2), false);
+	gameEngine.AddGameObject(new GameObject("ball3", glm::vec3(-15.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toon"), &physSphere3), false);
+	gameEngine.AddGameObject(new GameObject("ball4", glm::vec3(-30.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toon"), &physSphere4), false);
+	
+	gameEngine.AddGameObject(new GameObject("green", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("GrassMesh"), gameEngine.textureManager.GetTexture("Grass"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+
+	gameEngine.AddGameObject(new GameObject("ditch", glm::vec3(0.0, 0.0, -550.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("FieldMesh"), gameEngine.textureManager.GetTexture("Field"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+
+	gameEngine.AddGameObject(new GameObject("boundaries", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("Boundaries"), gameEngine.textureManager.GetTexture("Stone"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+
+	gameEngine.gameManager.GetJack(gameEngine.FindGameObject("jack"));
+	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball1"), 0);
+	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball2"), 0);
+	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball3"), 1);
+	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball4"), 1);
+
+	//Skybox:
+	gameEngine.AddGameObject(new GameObject("skyboxTop", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBTop"), gameEngine.textureManager.GetTexture("SBTop"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	gameEngine.AddGameObject(new GameObject("skyboxLeft", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBLeft"), gameEngine.textureManager.GetTexture("SBRight"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	gameEngine.AddGameObject(new GameObject("skyboxRight", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBRight"), gameEngine.textureManager.GetTexture("SBLeft"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	gameEngine.AddGameObject(new GameObject("skyboxBottom", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBBottom"), gameEngine.textureManager.GetTexture("SBBottom"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	gameEngine.AddGameObject(new GameObject("skyboxFront", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBFront"), gameEngine.textureManager.GetTexture("SBFront"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	gameEngine.AddGameObject(new GameObject("skyboxBack", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("SBBack"), gameEngine.textureManager.GetTexture("SBBack"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("unlit")), false);
+	
+	gameEngine.Start();
+
+	//gameEngine.cameraManager.CleanMemory();
+	//gameEngine.lightManager.CleanMemory();
+	//gameEngine.materialManager.CleanMemory();
+	//gameEngine.meshManager.CleanMemory();
+	//gameEngine.shaderManager.CleanMemory();
+	//gameEngine.textureManager.CleanMemory();
+}
