@@ -8,7 +8,7 @@ struct BitMapFile
 {
 	int sizeX;
 	int sizeY;
-	unsigned char *data;
+	char *data;
 };
 
 BitMapFile *getbmp(std::string filename);

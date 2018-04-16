@@ -13,6 +13,10 @@
 #include "Mesh.h"
 #include "CustomShader.h"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 class Model
 {
 private:
@@ -26,9 +30,10 @@ public:
 	~Model();
 
 	GLint TextureFromFile(const char *path, std::string directory);
-	void LoadModel(GLchar* path);
+	void LoadModel(std::string path);
 	void Draw(CustomShader shader, glm::mat4 model);
-	void ProcessNode();
-	Mesh ProcessMesh();
+	void ProcessNode(aiNode* node, const aiScene* scene);
+	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 };
 
