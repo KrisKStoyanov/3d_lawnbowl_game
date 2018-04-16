@@ -1,10 +1,9 @@
 #include "Model.h"
 
-Model::Model(GLchar*path)
+Model::Model(GLchar* path)
 {
 	LoadModel(path);
 }
-
 
 Model::~Model()
 {
@@ -19,16 +18,16 @@ GLint Model::TextureFromFile(const char * path, std::string directory)
 
 void Model::LoadModel(std::string path)
 {
-	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-	{
-		std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-		return;
-	}
+	//Assimp::Importer importer;
+	//const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	//if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+	//{
+	//	std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+	//	return;
+	//}
 
-	directory = path.substr(0, path.find_last_of('/'));
-	ProcessNode(scene->mRootNode, scene);
+	//directory = path.substr(0, path.find_last_of('/'));
+	//ProcessNode(scene->mRootNode, scene);
 }
 
 void Model::Draw(CustomShader shader, glm::mat4 model)
@@ -54,7 +53,6 @@ Mesh Model::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<Texture> textures;
 
 	for (GLuint i = 0; i < mesh->mNumVertices; i++) {
 
@@ -96,10 +94,6 @@ Mesh Model::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 			}
 		}
 
-		if (mesh->mMaterialIndex >= 0) {
-			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
-		}
 	}
 	return Mesh(vertices, indices);
 }
@@ -108,7 +102,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial * mat, aiTextureType
 {
 	std::vector<Texture> textures;
 
-	for (GLuint i = 0; i < mat->GetTextureCount(type); i++) {
+	/*for (GLuint i = 0; i < mat->GetTextureCount(type); i++) {
 		aiString str;
 		mat->GetTexture(type, i, &str);
 
@@ -127,6 +121,6 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial * mat, aiTextureType
 			Texture texture(str.data, true);
 			loadedTextures.push_back(texture);
 		}
-	} 
+	} */
 	return textures;
 }
