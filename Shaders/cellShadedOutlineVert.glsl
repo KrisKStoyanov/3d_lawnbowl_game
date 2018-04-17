@@ -23,5 +23,5 @@ void main(void)
    
    fragPos = vec3(model * objectCoords);
 
-   gl_Position = projection * model * view * objectCoords;
+   gl_Position = projection * view * model * objectCoords;
 }

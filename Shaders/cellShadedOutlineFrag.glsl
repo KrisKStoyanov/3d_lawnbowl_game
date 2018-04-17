@@ -62,8 +62,8 @@ uniform SpotLight spotLight;
 uniform Material material;
 
 const float levels = 3.0;
-const float outlineThickness = 2.0f;
-vec4 outlineCol = vec4(1.0,1.0,1.0,1.0);
+const float outlineThickness = 4.0f;
+vec4 outlineCol = vec4(0.0,0.0,0.0,1.0);
 
 // Function prototypes
 vec3 CalcDirLight( DirLight light, vec3 normal, vec3 viewDir );
@@ -82,14 +82,23 @@ void main( )
     // Point lighting
     result += CalcPointLight( pointLight, norm, fragPos, viewDir );
     
-    // Spot light
+    // Spot lighting
     result += CalcSpotLight( spotLight, norm, fragPos, viewDir );
 
+	//Calculate each light pass for a differet frag position
     float level = floor((result.r + result.g + result.b) * levels);
-    result.x = level/levels;
-    result.y = level/levels;
-    result.z = level/levels;
-    
+	
+	//Cell shading based on levels criteria
+    result.r = level/levels;
+    result.g = level/levels;
+    result.b = level/levels;
+
+		//Setup outline based on view direction
+	if(dot(viewDir, norm) <= 0.25)
+	{
+		result = vec3(outlineCol);
+	}
+
     colorsOut = texture(mainTex, texCoordsExport) * vec4( result, 1.0 ) * colorsExport;
 }
 
@@ -97,7 +106,7 @@ void main( )
 vec3 CalcDirLight( DirLight light, vec3 normal, vec3 viewDir )
 {
     vec3 lightDir = normalize( -light.direction );
-    
+
     // Diffuse shading
     float diff = max( dot( normal, lightDir ), 0.0 );
     
