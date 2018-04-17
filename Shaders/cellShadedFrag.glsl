@@ -75,20 +75,20 @@ void main( )
     vec3 viewDir = normalize( viewPos - fragPos );
     
     // Directional lighting
-    vec3 result = CalcDirLight( dirLight, norm, viewDir );
+    vec3 lightCol = CalcDirLight( dirLight, norm, viewDir );
     
     // Point lighting
-    result += CalcPointLight( pointLight, norm, fragPos, viewDir );
+    lightCol += CalcPointLight( pointLight, norm, fragPos, viewDir );
     
     // Spot light
-    result += CalcSpotLight( spotLight, norm, fragPos, viewDir );
+    lightCol += CalcSpotLight( spotLight, norm, fragPos, viewDir );
 
-    float level = floor((result.r + result.g + result.b) * levels);
-    result.x = level/levels;
-    result.y = level/levels;
-    result.z = level/levels;
+    float level = floor((lightCol.r + lightCol.g + lightCol.b) * levels);
+    lightCol.r = level/levels;
+    lightCol.g = level/levels;
+    lightCol.b = level/levels;
     
-    colorsOut = texture(mainTex, texCoordsExport) * vec4( result, 1.0 ) * colorsExport;
+    colorsOut = texture(mainTex, texCoordsExport) * vec4( lightCol, 1.0 ) * colorsExport;
 }
 
 // Calculates the color when using a directional light.
