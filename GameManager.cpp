@@ -22,6 +22,16 @@ void GameManager::LocateCurrentBall()
 	}
 }
 
+void GameManager::SwapThrowhand()
+{
+	if (backhand) {
+		backhand = false;
+	}
+	else {
+		backhand = true;
+	}
+}
+
 void GameManager::Setup(int _numOfTeams, int _startingTeam, int _ballsPerTeam, glm::vec3 _throwingPos)
 {
 	numOfTeams = _numOfTeams;
@@ -31,18 +41,21 @@ void GameManager::Setup(int _numOfTeams, int _startingTeam, int _ballsPerTeam, g
 	for (int i = 0; i < numOfTeams; i++) {
 		teams.push_back(new Team(i));
 	}
-	//for (int i = 1; i < teams; i++) {
-	//	teamIds.push_back(i);
-	//}
-	//for (int i = 0; i < teams; i++) {
-	//	teamScores.push_back(0);
-	//}
 	nextThrowReady = true;
 	inactiveJack = true;
 	gameOver = false;
 	announceWin = false;
 	declaredWin = false;
+	backhand = true;
 	currentTeam = startingTeam;
+
+	prepAccel = 0.0f;
+	prepRot = 0.0f;
+
+	//Preset Weather Effect
+	srand(time(NULL));
+	weatherEffect.x = rand() % 15 + -15;
+	weatherEffect.z = rand() % 15 + -15;
 }
 
 void GameManager::AddLawnBall(GameObject * _lawnBall, int teamId)
@@ -61,16 +74,34 @@ void GameManager::GetJack(GameObject * _jack)
 void GameManager::ThrowJack()
 {
 	if (nextThrowReady) {
-		if (prepareThrow) {
-			prepAccel += 1.0f;
-			//std::cout << "prepping to throw jack" << std::endl;
-			//std::cout << prepAccel << std::endl;
+
+		if (prepThrow) {
+			prepAccel += 2.0f;
+			prepRot += .5f;
+
 		}
-		else if (!prepareThrow) {
+		else if (!prepThrow) {
 			nextThrowReady = false;
-			jack->physObj->acceleration = prepAccel;
+
+			//Hard cap for balancing gameplay
+			if (prepAccel >= 30.0f) {
+				prepAccel = 30.0f;
+			}
+			if (prepRot >= 10.0f) {
+				prepRot = 10.0f;
+			}
+
+			//Determine rotation angle
+			if (backhand) {
+				prepRot *= 1.0f;
+			}
+			else if (!backhand) {
+				prepRot *= -1.0f;
+			}
+
+			jack->physObj->SetTrajectory(false, prepAccel, prepRot, true, weatherEffect);
 			prepAccel = 0.0f;
-			//std::cout << "jack thrown" << std::endl;
+			prepRot = 0.0f;
 		}
 	}
 }
@@ -78,17 +109,33 @@ void GameManager::ThrowJack()
 void GameManager::ThrowBall()
 {
 	if (nextThrowReady) {
-		if (prepareThrow) {
+		if (prepThrow) {
 			prepAccel += 1.0f;
-			//std::cout << "prepping to throw bowl" << std::endl;
-			//std::cout << prepAccel << std::endl;
+			prepRot += .25f;
 		}
 
-		else if (!prepareThrow) {
+		else if (!prepThrow) {
 			nextThrowReady = false;
 			for (int i = 0; i < lawnBalls.size(); i++) {
 				if (lawnBalls[i]->teamId == currentTeam && lawnBalls[i]->active) {
-					lawnBalls[i]->gameObject->physObj->acceleration = prepAccel;
+
+					//Hard cap for balancing gameplay
+					if (prepAccel >= 30.0f) {
+						prepAccel = 30.0f;
+					}
+					if (prepRot >= 7.5f) {
+						prepRot = 7.5f;
+					}
+
+					//Determine rotation angle
+					if (backhand) {
+						prepRot *= 1.0f;
+					}
+					else if (!backhand) {
+						prepRot *= -1.0f;
+					}
+
+					lawnBalls[i]->gameObject->physObj->SetTrajectory(true, prepAccel, prepRot, true, weatherEffect);
 					lawnBalls[i]->active = false;
 
 					for (int j = 0; j < teams.size(); j++) {
@@ -100,6 +147,7 @@ void GameManager::ThrowBall()
 				}
 			}
 			prepAccel = 0.0f;
+			prepRot = 0.0f;
 
 			//Check next team to throw
 			bool allTeamsPlayed = true;
@@ -155,9 +203,9 @@ void GameManager::SettleGame()
 			}
 		}
 		int winnerId;
-		float shortestDist = 10000;
+		float shortestDist = teams[0]->score;
 		for (int i = 0; i < teams.size(); i++) {
-			std::cout << teams[i]->score << std::endl;
+			std::cout << "Team: " << teams[i]->teamId << " Score: " << teams[i]->score << std::endl;
 			if (teams[i]->score < shortestDist) {
 				shortestDist = teams[i]->score;
 				winnerId = teams[i]->teamId;

@@ -82,16 +82,16 @@ void GameEngine::Setup()
 		{ { -500.0, 0.0, -50.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 2.5 } ,{ 0.0, 1.0, 0.0 } }
 		}), std::vector<GLuint>({ 0,1,2,3 })));
 
-	//Stone Boundaries
+	//Stone Boundaries:
 	meshManager.UploadMesh("Boundaries", new Mesh(std::vector<Vertex>({
-		{ { 500.0, 0.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 },{ 40.0, 0.0 },{ 0.0, 0.0, 1.0 } }, //0
-		{ { 500.0, 40.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 40.0, 1.0 } ,{ 0.0, 0.0, 1.0 } }, //1
-		{ { -500.0, 0.0, -600.0, 1.0 },{ 1.0, 1.0,1.0, 1.0 } ,{ 0.0, 0.0 } ,{ 0.0, 0.0, 1.0 } }, //2
-		{ { -500.0, 40.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 1.0 } ,{ 0.0, 0.0, 1.0 } }, //3
-		{ { -500.0, 0.0, 500.0, 1.0 },{ 1.0, 1.0,1.0, 1.0 } ,{ 40.0, 0.0 } ,{ -1.0, 0.0, 0.0 } }, //4
-		{ { -500.0, 40.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 40.0, 1.0 } ,{ -1.0, 0.0, 0.0 } }, //5
-		{ { 500.0, 0.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 },{ 0.0, 0.0 },{ 0.0, 0.0, 1.0 } }, //6
-		{ { 500.0, 40.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 1.0 } ,{ 0.0, 0.0, 1.0 } }, //7
+		{ { 500.0, 0.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 },{ 40.0, 0.0 },{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //0
+		{ { 500.0, 40.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 40.0, 1.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //1
+		{ { -500.0, 0.0, -600.0, 1.0 },{ 1.0, 1.0,1.0, 1.0 } ,{ 0.0, 0.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //2
+		{ { -500.0, 40.0, -600.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 1.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //3
+		{ { -500.0, 0.0, 500.0, 1.0 },{ 1.0, 1.0,1.0, 1.0 } ,{ 40.0, 0.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //4
+		{ { -500.0, 40.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 40.0, 1.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //5
+		{ { 500.0, 0.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 },{ 0.0, 0.0 },{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //6
+		{ { 500.0, 40.0, 500.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 1.0 } ,{ mainCamera->GetPosition().x,mainCamera->GetPosition().y,mainCamera->GetPosition().z } }, //7
 
 		{ { 500.0, 40.0, -620.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 },{ 40.0, 0.0 },{ 0.0, 0.0, 1.0 } }, //8
 		{ { -500.0, 40.0, -620.0, 1.0 },{ 1.0, 1.0, 1.0, 1.0 } ,{ 0.0, 0.0 } ,{ 0.0, 0.0, 1.0 } }, //9
@@ -171,16 +171,16 @@ void GameEngine::Setup()
 	//LIGHTING:
 	//--------
 
-	lightManager.UploadLight("DirectLight", new DirLight(glm::vec3(0.4f, -1.0f, -0.4f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f)));
+	lightManager.UploadLight("DirectLight", new DirLight(glm::vec3(0.4f, -1.0f, -0.4f), glm::vec3(0.35f, 0.35f, 0.35f), glm::vec3(0.35f, 0.35f, 0.35f), glm::vec3(0.7f, 0.7f, 0.7f)));
 	lightManager.UploadLight("PointLight", new PointLight(glm::vec3(1000.0, 1000.0, 0.0), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.8, 0.8, 0.8), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
 	lightManager.UploadLight("SpotLight", new SpotLight(glm::vec3(1000.0, 1000.0, 0.0), glm::vec3(0.0, -10.0, 0.0), glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
 	
 	//MATERIALS:
 	//----------
 
-	materialManager.UploadMaterial("basic", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(0.5f, 0.5f, 0.5f), 32.0f));
+	materialManager.UploadMaterial("basic", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 16.0f));
 	materialManager.UploadMaterial("reflective", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
-	materialManager.UploadMaterial("dim", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(0.6f, 0.6f, 0.6f), glm::vec3(0.6f, 0.6f, 0.6f), 8.0f));
+	materialManager.UploadMaterial("dim", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(0.6f, 0.6f, 0.6f), glm::vec3(0.3f, 0.3f, 0.3f), 1.0f));
 
 	//CUBEMAP SKYBOX:
 	//--------------
@@ -195,11 +195,13 @@ void GameEngine::Setup()
 	CustomShader* shader1 = new CustomShader("./Shaders/vertexShader1.glsl", "./Shaders/fragmentShader1.glsl");
 	CustomShader* shader2 = new CustomShader("./Shaders/vertexShader2.glsl", "./Shaders/fragmentShader2.glsl");
 	CustomShader* shader3 = new CustomShader("./Shaders/cellShadedVert.glsl", "./Shaders/cellShadedFrag.glsl");
+	CustomShader* shader4 = new CustomShader("./Shaders/cellShadedOutlineVert.glsl", "./Shaders/cellShadedOutlineFrag.glsl");
 
 	shaderManager.UploadShader("lit", shader);
 	shaderManager.UploadShader("errorMagenta", shader1);
 	shaderManager.UploadShader("unlit", shader2);
 	shaderManager.UploadShader("toon", shader3);
+	shaderManager.UploadShader("toonOutline", shader4);
 }
 
 void GameEngine::Display(void)
@@ -371,7 +373,7 @@ void GameEngine::KeyCallback(unsigned char key, int action, int mode)
 		mainCamera->Setup(windowWidth, windowHeight);
 	}
 	if (key == ' ') {
-		gameManager.prepareThrow = true;
+		gameManager.prepThrow = true;
 		if (gameManager.inactiveJack) {
 			gameManager.ThrowJack();
 		}
@@ -379,12 +381,17 @@ void GameEngine::KeyCallback(unsigned char key, int action, int mode)
 			gameManager.ThrowBall();
 		}
 	}
+
+	if (key == 't') {
+		std::cout << gameManager.backhand << std::endl;
+		gameManager.SwapThrowhand();
+	}
 }
 
 void GameEngine::KeyReleaseCallback(unsigned char key, int action, int mode)
 {
 	if (key == ' ') {
-		gameManager.prepareThrow = false;
+		gameManager.prepThrow = false;
 		if (gameManager.inactiveJack) {
 			gameManager.ThrowJack();
 			gameManager.inactiveJack = false;

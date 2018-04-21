@@ -24,13 +24,12 @@ private:
 	std::string directory;
 	std::vector<Texture> loadedTextures;
 
-	void LoadModel(std::string path);
 public:
-	Model(GLchar*path);
+	Model();
 	~Model();
 
-	GLint TextureFromFile(const char *path, std::string directory);
-	void LoadModel(std::string path);
+	GLint TextureFromFile(std::string directory);
+	bool LoadModel(std::string& path);
 	void Draw(CustomShader shader, glm::mat4 model);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);

@@ -34,7 +34,7 @@ BitMapFile *getbmp(std::string filename)
 
 	// Allocate storage for image in input bitmap file.
 	int sizeStorage = sizeScanline * bmpRGB->sizeY;
-	bmpRGB->data = new unsigned char[sizeStorage];
+	bmpRGB->data = new char[sizeStorage];
 
 	// Read bmp file image data into input bitmap file.
 	infile.seekg(offset);
@@ -57,7 +57,7 @@ BitMapFile *getbmp(std::string filename)
 	// Set image width and height values and allocate storage for image in output bitmap file.
 	bmpRGBA->sizeX = bmpRGB->sizeX;
 	bmpRGBA->sizeY = bmpRGB->sizeY;
-	bmpRGBA->data = new unsigned char[4 * bmpRGB->sizeX*bmpRGB->sizeY];
+	bmpRGBA->data = new char[4 * bmpRGB->sizeX*bmpRGB->sizeY];
 
 	// Copy RGB data from input to output bitmap files, set output A to 1.
 	for (int j = 0; j < 4 * bmpRGB->sizeY * bmpRGB->sizeX; j += 4)

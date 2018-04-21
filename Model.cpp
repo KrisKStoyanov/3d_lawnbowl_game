@@ -1,33 +1,37 @@
 #include "Model.h"
 
-Model::Model(GLchar* path)
+Model::Model()
 {
-	LoadModel(path);
 }
 
 Model::~Model()
 {
 }
 
-GLint Model::TextureFromFile(const char * path, std::string directory)
+GLint Model::TextureFromFile(std::string directory)
 {
-	Texture texture(directory, false);
+	Texture texture(directory, true);
 
 	return texture.textureIndex;
 }
 
-void Model::LoadModel(std::string path)
+bool Model::LoadModel(std::string& path)
 {
-	//Assimp::Importer importer;
-	//const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-	//if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-	//{
-	//	std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
-	//	return;
-	//}
+	/*Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(path, aiProcess_CalcTangentSpace |
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType);
+	if (!scene)
+	{
+		std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+		return false;
+	}
 
-	//directory = path.substr(0, path.find_last_of('/'));
-	//ProcessNode(scene->mRootNode, scene);
+	directory = path.substr(0, path.find_last_of('/'));
+	ProcessNode(scene->mRootNode, scene);*/
+
+	return true;
 }
 
 void Model::Draw(CustomShader shader, glm::mat4 model)
@@ -102,25 +106,25 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial * mat, aiTextureType
 {
 	std::vector<Texture> textures;
 
-	/*for (GLuint i = 0; i < mat->GetTextureCount(type); i++) {
-		aiString str;
-		mat->GetTexture(type, i, &str);
+	//for (GLuint i = 0; i < mat->GetTextureCount(type); i++) {
+	//	aiString str;
+	//	mat->GetTexture(type, i, &str);
 
-		GLboolean skip = false;
+	//	GLboolean skip = false;
 
-		for (GLuint j = 0; j < loadedTextures.size(); j++) {
-			if (loadedTextures[j].image->data == str.data) {
-				textures.push_back(loadedTextures[j]);
-				skip = true;
+	//	for (GLuint j = 0; j < loadedTextures.size(); j++) {
+	//		if (loadedTextures[j].image->data == str.data) {
+	//			textures.push_back(loadedTextures[j]);
+	//			skip = true;
 
-				break;
-			}
-		}
+	//			break;
+	//		}
+	//	}
 
-		if (!skip) {
-			Texture texture(str.data, true);
-			loadedTextures.push_back(texture);
-		}
-	} */
+	//	if (!skip) {
+	//		Texture texture(str.data, true);
+	//		loadedTextures.push_back(texture);
+	//	}
+	//} 
 	return textures;
 }

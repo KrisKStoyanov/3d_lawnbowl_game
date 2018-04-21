@@ -13,11 +13,11 @@ int main(int argc, char **argv)
 	gameEngine.Setup();
 
 	PhysicsObject physPlane(0.0f, new PlaneCollider(glm::vec3(0.0f, 1.0f, 0.0f)));
-	PhysicsObject physSphere(5.0f, new SphereCollider(2));
-	PhysicsObject physSphere1(5.0f, new SphereCollider(4));
-	PhysicsObject physSphere2(5.0f, new SphereCollider(4));
-	PhysicsObject physSphere3(5.0f, new SphereCollider(4));
-	PhysicsObject physSphere4(5.0f, new SphereCollider(4));
+	PhysicsObject physSphere(3.0f, new SphereCollider(2));
+	PhysicsObject physSphere1(6.0f, new SphereCollider(4));
+	PhysicsObject physSphere2(6.0f, new SphereCollider(4));
+	PhysicsObject physSphere3(6.0f, new SphereCollider(4));
+	PhysicsObject physSphere4(6.0f, new SphereCollider(4));
 
 	gameEngine.AddPhysObject(&physPlane);
 	gameEngine.AddPhysObject(&physSphere);
@@ -32,11 +32,11 @@ int main(int argc, char **argv)
 	gameEngine.AddGameObject(new GameObject("ball3", glm::vec3(-15.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere3), false);
 	gameEngine.AddGameObject(new GameObject("ball4", glm::vec3(-30.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere4), false);
 	
-	gameEngine.AddGameObject(new GameObject("green", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("GrassMesh"), gameEngine.textureManager.GetTexture("Grass"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+	gameEngine.AddGameObject(new GameObject("green", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("GrassMesh"), gameEngine.textureManager.GetTexture("Grass"), gameEngine.materialManager.GetMaterial("dim"), gameEngine.shaderManager.GetShader("lit")), false);
 
-	gameEngine.AddGameObject(new GameObject("ditch", glm::vec3(0.0, 0.0, -550.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("FieldMesh"), gameEngine.textureManager.GetTexture("Field"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+	gameEngine.AddGameObject(new GameObject("ditch", glm::vec3(0.0, 0.0, -550.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("FieldMesh"), gameEngine.textureManager.GetTexture("Field"), gameEngine.materialManager.GetMaterial("dim"), gameEngine.shaderManager.GetShader("lit")), false);
 
-	gameEngine.AddGameObject(new GameObject("boundaries", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("Boundaries"), gameEngine.textureManager.GetTexture("Stone"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("toon")), false);
+	gameEngine.AddGameObject(new GameObject("boundaries", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("Boundaries"), gameEngine.textureManager.GetTexture("Stone"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("lit")), false);
 
 	gameEngine.gameManager.GetJack(gameEngine.FindGameObject("jack"));
 	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball1"), 0);

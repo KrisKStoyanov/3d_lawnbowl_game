@@ -1,6 +1,9 @@
 #pragma once
 #include "LawnBall.h"
 #include "Team.h"
+
+#include "glm/gtx/rotate_vector.hpp"
+#include <time.h>
 class GameManager
 {
 public:
@@ -14,8 +17,11 @@ public:
 	int currentTeam;
 
 	bool nextThrowReady;
-	bool prepareThrow;
+	bool prepThrow;
+	bool backhand;
+
 	float prepAccel;
+	float prepRot;
 
 	bool declaredWin;
 	bool announceWin;
@@ -23,7 +29,11 @@ public:
 
 	glm::vec3 throwingPos;
 
+	//Dynamic condition for rotation angle setting
+	glm::vec3 weatherEffect;
+
 	void LocateCurrentBall();
+	void SwapThrowhand();
 	void Setup(int _numOfTeams, int _startingTeam, int _ballsPerTeam, glm::vec3 _throwingPos);
 	void AddLawnBall(GameObject* _lawnBall, int teamId);
 	void GetJack(GameObject* _jack);
