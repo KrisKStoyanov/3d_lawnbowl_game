@@ -8,6 +8,7 @@ PhysicsObject::PhysicsObject(float _mass, Collider* _col = nullptr)
 	rotation = direction;
 	rotationAngle = 0.0f;
 	worldUp = glm::vec3(0.0, 1.0, 0.0f);
+	gravity = glm::vec3(0.0f, -9.81f, 0.0f);
 	mass = _mass;
 	collider = _col;
 	grounded = false;

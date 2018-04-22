@@ -26,6 +26,7 @@ public:
 	glm::vec3 friction = glm::vec3(1.0f,1.0f,1.0f);
 	glm::vec3 rotation;
 	glm::vec3 worldUp;
+	glm::vec3 gravity;
 	float acceleration;
 	float mass;
 	bool grounded;

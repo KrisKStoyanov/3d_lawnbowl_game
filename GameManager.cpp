@@ -17,6 +17,8 @@ void GameManager::LocateCurrentBall()
 		if (lawnBalls[i]->teamId == currentTeam && lawnBalls[i]->active) {
 			currentBall = lawnBalls[i]->gameObject;
 			lawnBalls[i]->gameObject->physObj->position = throwingPos;
+			//Resetting direction in case of unexpected sphere collision during its resting phase
+			lawnBalls[i]->gameObject->physObj->direction = lawnBalls[i]->gameObject->direction;
 			break;
 		}
 	}
@@ -202,8 +204,10 @@ void GameManager::SettleGame()
 				}
 			}
 		}
-		int winnerId;
+
+		int winnerId = 0;
 		float shortestDist = teams[0]->score;
+
 		for (int i = 0; i < teams.size(); i++) {
 			std::cout << "Team: " << teams[i]->teamId << " Score: " << teams[i]->score << std::endl;
 			if (teams[i]->score < shortestDist) {
