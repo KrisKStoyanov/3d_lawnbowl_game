@@ -28,7 +28,7 @@ void Camera::Setup(int windowWidth, int windowHeight)
 {
 	lastX = windowWidth / 2;
 	lastY = windowHeight / 2;
-	projection = glm::perspective(90.0f, (GLfloat)windowWidth / (GLfloat)windowHeight, 0.1f, 5000.0f);
+	projection = glm::perspectiveFov(90.0f, (GLfloat)windowWidth, (GLfloat)windowHeight, 0.1f, 5000.0f);
 }
 
 void Camera::ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime)

@@ -30,6 +30,8 @@
 #include "ShaderManager.h"
 #include "CameraManager.h"
 
+#include "ModelManager.h"
+
 #include "PhysicsEngine.h"
 
 #include "GameManager.h"
@@ -81,6 +83,8 @@ public:
 	static TextureManager textureManager;
 	static ShaderManager shaderManager;
 	static CameraManager cameraManager;
+
+	static ModelManager modelManager;
 
 	static PhysicsEngine physEngine;
 

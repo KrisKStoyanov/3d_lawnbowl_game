@@ -20,6 +20,16 @@ GameObject::GameObject(std::string _name, glm::vec3 _position, glm::vec3 _direct
 	physObj = _physObj;
 }
 
+GameObject::GameObject(std::string _name, glm::vec3 _position, glm::vec3 _direction, Model * _model, CustomShader* _shader)
+{
+	name = _name;
+	position = _position;
+	direction = _direction;
+	model = _model;
+	customShader = _shader;
+	material = model->modelMatColData;
+}
+
 GameObject::~GameObject()
 {
 }
@@ -51,6 +61,10 @@ void GameObject::Draw()
 		else {
 			mesh->DrawArrayMesh(modelMatrix);
 		}
+	}
+
+	if (model != NULL) {
+		model->Draw(modelMatrix);
 	}
 }
 

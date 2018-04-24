@@ -46,10 +46,13 @@ void PhysicsEngine::HandleCollisions()
 			else {
 				//If first physObj collider is a sphere check sphere collision
 				if (sphereColi->Collides(sphereColj)) {
+					//Set direction of each object using the point of collision
 					physicsObjects[i]->direction = glm::normalize(physicsObjects[i]->position - physicsObjects[j]->position);
 					physicsObjects[j]->direction = glm::normalize(physicsObjects[j]->position - physicsObjects[i]->position);
-					physicsObjects[i]->acceleration += physicsObjects[j]->acceleration/ physicsObjects[i]->mass;
-					physicsObjects[j]->acceleration -= physicsObjects[j]->acceleration / physicsObjects[i]->mass;
+					//Save current acceleration in colliding objects and distribute it individually based on their mass
+					float processedAccel = physicsObjects[i]->acceleration + physicsObjects[j]->acceleration;
+					physicsObjects[i]->acceleration += processedAccel / physicsObjects[i]->mass;
+					physicsObjects[j]->acceleration += processedAccel / physicsObjects[j]->mass;
 				}
 			}
 		}

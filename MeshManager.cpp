@@ -39,7 +39,7 @@ void MeshManager::UploadSphereMesh(std::string meshKey, int slices, int stacks, 
 
 			//meshVertices.push_back((glm::vec4(x * radius, y * radius + 6.0, z * radius, 1.0), glm::vec4(1.0,1.0,1.0,1.0), glm::vec2(0.0,0.0), glm::vec3(x, y, z);
 			Vertex vert;
-			vert.coords = glm::vec4(x * radius, y * radius + 6.0, z * radius, 1.0);
+			vert.coords = glm::vec4(x * radius, y * radius, z * radius, 1.0);
 			vert.normal = glm::vec3(x, y, z); 
 			float piVal = 3.14159;
 			vert.uv = glm::vec2((glm::asin(vert.normal.x) / piVal + 0.5f), (glm::asin(vert.normal.y) / piVal  + 0.5f));

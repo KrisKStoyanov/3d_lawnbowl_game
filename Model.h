@@ -25,14 +25,17 @@ private:
 	std::vector<Texture> loadedTextures;
 
 public:
-	Model();
+	Model(std::string path);
 	~Model();
 
-	GLint TextureFromFile(std::string directory);
-	bool LoadModel(std::string& path);
-	void Draw(CustomShader shader, glm::mat4 model);
+	Texture TextureFromFile(const GLchar *path, std::string directory);
+	void LoadModel(std::string& path);
+	void Draw(glm::mat4 model);
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-	std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+	std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type);
+
+	//Save material data for game object instanciating
+	Material* modelMatColData;
 };
 

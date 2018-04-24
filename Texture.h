@@ -15,6 +15,7 @@ class Texture
 {
 public:
 	Texture(std::string imageAddress, bool repeatWrap,int width = 0, int height = 0);
+	Texture();
 	~Texture();
 	BitMapFile* image;
 	GLuint textureIndex;

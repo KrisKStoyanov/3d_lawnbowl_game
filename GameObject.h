@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Lightmap.h"
 #include "PhysicsObject.h"
+#include "Model.h"
 
 class GameObject
 {
@@ -18,6 +19,9 @@ public:
 	//Physical Object instantiator
 	GameObject(std::string _name, glm::vec3 _position, glm::vec3 _direction, Mesh* _mesh, Texture* _texture, Material* _material, CustomShader* _shader, PhysicsObject* _physObj = nullptr);
 	
+	//3D Model instantiator
+	GameObject(std::string _name, glm::vec3 position, glm::vec3 direction, Model* _model, CustomShader* _shader);
+
 	~GameObject();
 
 	std::string name;
@@ -37,6 +41,7 @@ public:
 	Material* material = nullptr;
 	CustomShader* customShader = nullptr;
 	PhysicsObject* physObj = nullptr;
+	Model* model = nullptr;
 
 	virtual void Draw();
 	virtual void Setup();

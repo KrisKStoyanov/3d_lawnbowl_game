@@ -26,17 +26,20 @@ int main(int argc, char **argv)
 	gameEngine.AddPhysObject(&physSphere3);
 	gameEngine.AddPhysObject(&physSphere4);
 
-	gameEngine.AddGameObject(new GameObject("jack", glm::vec3(0.0, 0.0, 90.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("SmallSphere"), gameEngine.textureManager.GetTexture("ShinyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere), false);
-	gameEngine.AddGameObject(new GameObject("ball1", glm::vec3(15.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"),gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere1), false);	
-	gameEngine.AddGameObject(new GameObject("ball2", glm::vec3(30.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere2), false);
-	gameEngine.AddGameObject(new GameObject("ball3", glm::vec3(-15.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere3), false);
-	gameEngine.AddGameObject(new GameObject("ball4", glm::vec3(-30.0, 0.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere4), false);
+	gameEngine.AddGameObject(new GameObject("jack", glm::vec3(0.0, 6.0, 90.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("SmallSphere"), gameEngine.textureManager.GetTexture("ShinyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere), false);
+	gameEngine.AddGameObject(new GameObject("ball1", glm::vec3(15.0, 6.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"),gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere1), false);	
+	gameEngine.AddGameObject(new GameObject("ball2", glm::vec3(30.0, 6.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("BasicMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere2), false);
+	gameEngine.AddGameObject(new GameObject("ball3", glm::vec3(-15.0, 6.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere3), false);
+	gameEngine.AddGameObject(new GameObject("ball4", glm::vec3(-30.0, 6.0, 100.0), glm::vec3(0.0, 0.0, -1.0), gameEngine.meshManager.GetMesh("MediumSphere"), gameEngine.textureManager.GetTexture("DustyMetal"), gameEngine.materialManager.GetMaterial("reflective"), gameEngine.shaderManager.GetShader("toonOutline"), &physSphere4), false);
 	
 	gameEngine.AddGameObject(new GameObject("green", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("GrassMesh"), gameEngine.textureManager.GetTexture("Grass"), gameEngine.materialManager.GetMaterial("dim"), gameEngine.shaderManager.GetShader("lit")), false);
 
 	gameEngine.AddGameObject(new GameObject("ditch", glm::vec3(0.0, 0.0, -550.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("FieldMesh"), gameEngine.textureManager.GetTexture("Field"), gameEngine.materialManager.GetMaterial("dim"), gameEngine.shaderManager.GetShader("lit")), false);
 
 	gameEngine.AddGameObject(new GameObject("boundaries", glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.meshManager.GetMesh("Boundaries"), gameEngine.textureManager.GetTexture("Stone"), gameEngine.materialManager.GetMaterial("basic"), gameEngine.shaderManager.GetShader("lit")), false);
+
+	gameEngine.AddGameObject(new GameObject("clubhouse", glm::vec3(0.0, 25.0, -700.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.modelManager.GetModel("Clubhouse"), gameEngine.shaderManager.GetShader("lit")),false);
+	//gameEngine.AddGameObject(new GameObject("locker", glm::vec3(0.0, 0.0, -1000.0), glm::vec3(0.0, 0.0, 0.0), gameEngine.modelManager.GetModel("Locker"), gameEngine.shaderManager.GetShader("lit")), false);
 
 	gameEngine.gameManager.GetJack(gameEngine.FindGameObject("jack"));
 	gameEngine.gameManager.AddLawnBall(gameEngine.FindGameObject("ball1"), 0);

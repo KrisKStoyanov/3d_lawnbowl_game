@@ -18,6 +18,8 @@ TextureManager GameEngine::textureManager;
 ShaderManager GameEngine::shaderManager;
 CameraManager GameEngine::cameraManager;
 
+ModelManager GameEngine::modelManager;
+
 PhysicsEngine GameEngine::physEngine;
 
 int GameEngine::windowWidth;
@@ -47,7 +49,7 @@ void GameEngine::Setup()
 	//GAME MANAGER: (LAWN BOWL)
 	//------------
 
-	gameManager.Setup(2, 0, 2, glm::vec3(0.0, 0.0, 90.0));
+	gameManager.Setup(2, 0, 2, glm::vec3(0.0, 6.0, 90.0));
 
 	//CAMERAS:
 	//-------
@@ -182,6 +184,12 @@ void GameEngine::Setup()
 	materialManager.UploadMaterial("reflective", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 	materialManager.UploadMaterial("dim", new Material(glm::vec3(1.0f, 0.5f, 0.31f), glm::vec3(0.6f, 0.6f, 0.6f), glm::vec3(0.3f, 0.3f, 0.3f), 1.0f));
 
+	//MODELS:
+	//-------
+
+	modelManager.UploadModel("Clubhouse", new Model("./Resources/Models/clubhouse_textured_optimized.obj"));
+	//modelManager.UploadModel("Locker", new Model("./Resources/Models/toonLocker.obj"));
+
 	//CUBEMAP SKYBOX:
 	//--------------
 
@@ -196,12 +204,14 @@ void GameEngine::Setup()
 	CustomShader* shader2 = new CustomShader("./Shaders/vertexShader2.glsl", "./Shaders/fragmentShader2.glsl");
 	CustomShader* shader3 = new CustomShader("./Shaders/cellShadedVert.glsl", "./Shaders/cellShadedFrag.glsl");
 	CustomShader* shader4 = new CustomShader("./Shaders/cellShadedOutlineVert.glsl", "./Shaders/cellShadedOutlineFrag.glsl");
+	CustomShader* shader5 = new CustomShader("./Shaders/vertexShaderNoTex.glsl", "./Shaders/fragmentShaderNoTex.glsl");
 
 	shaderManager.UploadShader("lit", shader);
 	shaderManager.UploadShader("errorMagenta", shader1);
 	shaderManager.UploadShader("unlit", shader2);
 	shaderManager.UploadShader("toon", shader3);
 	shaderManager.UploadShader("toonOutline", shader4);
+	shaderManager.UploadShader("baseColor", shader5);
 }
 
 void GameEngine::Display(void)
@@ -374,6 +384,7 @@ void GameEngine::KeyCallback(unsigned char key, int action, int mode)
 	}
 	if (key == ' ') {
 		gameManager.prepThrow = true;
+
 		if (gameManager.inactiveJack) {
 			gameManager.ThrowJack();
 		}

@@ -31,6 +31,10 @@ Texture::Texture(std::string imageAddress, bool repeatWrap, int width, int heigh
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+Texture::Texture()
+{
+}
+
 
 Texture::~Texture()
 {
