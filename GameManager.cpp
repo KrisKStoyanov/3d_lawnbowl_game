@@ -58,6 +58,8 @@ void GameManager::Setup(int _numOfTeams, int _startingTeam, int _ballsPerTeam, g
 	srand(time(NULL));
 	weatherEffect.x = rand() % 15 + -15;
 	weatherEffect.z = rand() % 15 + -15;
+
+	std::cout << "Current Weather Influence:: " << "bowl displacement on X axis: "<<  weatherEffect.x << " , bowl displacement on Z axis: " << weatherEffect.z << std::endl;
 }
 
 void GameManager::AddLawnBall(GameObject * _lawnBall, int teamId)
@@ -85,12 +87,12 @@ void GameManager::ThrowJack()
 		else if (!prepThrow) {
 			nextThrowReady = false;
 
-			//Hard cap for balancing gameplay
+			//Hard cap for gameplay balancing
 			if (prepAccel >= 30.0f) {
 				prepAccel = 30.0f;
 			}
-			if (prepRot >= 10.0f) {
-				prepRot = 10.0f;
+			if (prepRot >= 20.0f) {
+				prepRot = 20.0f;
 			}
 
 			//Determine rotation angle

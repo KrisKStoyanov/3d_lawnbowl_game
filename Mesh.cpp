@@ -149,6 +149,10 @@ void Mesh::DrawElemTexMesh(glm::mat4 model)
 
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, meshIndices.size(), GL_UNSIGNED_INT, 0);
+
+	for (GLuint i = 0; i < meshTextures.size(); i++) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	glBindVertexArray(0);
 }
 

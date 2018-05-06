@@ -49,7 +49,7 @@ void GameEngine::Setup()
 	//GAME MANAGER: (LAWN BOWL)
 	//------------
 
-	gameManager.Setup(2, 0, 2, glm::vec3(0.0, 6.0, 90.0));
+	gameManager.Setup(2, 0, 3, glm::vec3(0.0, 6.0, 90.0));
 
 	//CAMERAS:
 	//-------
@@ -174,8 +174,8 @@ void GameEngine::Setup()
 	//--------
 
 	lightManager.UploadLight("DirectLight", new DirLight(glm::vec3(0.4f, -1.0f, -0.4f), glm::vec3(0.35f, 0.35f, 0.35f), glm::vec3(0.35f, 0.35f, 0.35f), glm::vec3(0.7f, 0.7f, 0.7f)));
-	lightManager.UploadLight("PointLight", new PointLight(glm::vec3(1000.0, 1000.0, 0.0), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.8, 0.8, 0.8), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
-	lightManager.UploadLight("SpotLight", new SpotLight(glm::vec3(1000.0, 1000.0, 0.0), glm::vec3(0.0, -10.0, 0.0), glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
+	lightManager.UploadLight("PointLight", new PointLight(glm::vec3(0.0, 25.0, -750.0), glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.8, 0.8, 0.8), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
+	lightManager.UploadLight("SpotLight", new SpotLight(glm::vec3(0.0, 50.0, -750.0), glm::vec3(0.0, -10.0, 10.0), glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 1.0), 1.0f, 0.09f, 0.032f));
 	
 	//MATERIALS:
 	//----------
@@ -188,7 +188,7 @@ void GameEngine::Setup()
 	//-------
 
 	modelManager.UploadModel("Clubhouse", new Model("./Resources/Models/clubhouse_textured_optimized.obj"));
-	//modelManager.UploadModel("Locker", new Model("./Resources/Models/toonLocker.obj"));
+	//modelManager.UploadModel("Warehouse", new Model("./Resources/Models/toonWarehouse.obj"));
 
 	//CUBEMAP SKYBOX:
 	//--------------
@@ -342,6 +342,13 @@ void GameEngine::KeyCallback(unsigned char key, int action, int mode)
 	splashScreen.active = false;
 
 	if (key == 27) {
+		cameraManager.CleanMemory();
+		lightManager.CleanMemory();
+		materialManager.CleanMemory();
+		meshManager.CleanMemory();
+		shaderManager.CleanMemory();
+		textureManager.CleanMemory();
+		modelManager.CleanMemory();
 		exit(0);
 	}
 
@@ -396,6 +403,16 @@ void GameEngine::KeyCallback(unsigned char key, int action, int mode)
 	if (key == 't') {
 		std::cout << gameManager.backhand << std::endl;
 		gameManager.SwapThrowhand();
+	}
+
+	if (key == 'm') {
+		gameManager.prepRot += 1.0f;
+		std::cout << gameManager.prepRot << std::endl;
+	}
+
+	if (key == 'n') {
+		gameManager.prepRot -= 1.0f;
+		std::cout << gameManager.prepRot << std::endl;
 	}
 }
 

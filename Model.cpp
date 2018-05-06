@@ -70,7 +70,7 @@ Mesh Model::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<Texture> textures;
+	//std::vector<Texture> textures;
 
 	for (GLuint i = 0; i < mesh->mNumVertices; i++) {
 
@@ -134,13 +134,13 @@ Mesh Model::ProcessMesh(aiMesh * mesh, const aiScene * scene)
 
 			material->Get(AI_MATKEY_SHININESS, modelMatColData->shininess);
 
-			std::vector<Texture> matTex = LoadMaterialTextures(material, aiTextureType_DIFFUSE);
-			textures.insert(textures.end(), matTex.begin(), matTex.end());
+			//std::vector<Texture> matTex = LoadMaterialTextures(material, aiTextureType_DIFFUSE);
+			//textures.insert(textures.end(), matTex.begin(), matTex.end());
 		}
 
 	}
 
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices);
 }
 
 std::vector<Texture> Model::LoadMaterialTextures(aiMaterial * mat, aiTextureType type)
