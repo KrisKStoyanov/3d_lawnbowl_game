@@ -1,1 +1,1 @@
-# C-Modern-OpenGL-Game
+# 3D Lawn bowl game powered by OpenGL
